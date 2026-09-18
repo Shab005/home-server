@@ -1,0 +1,19 @@
+# Secrets
+*.pem
+*.key
+*.json
+.env
+.cloudflared/
+tailscale/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+
+# Data
+DATA/
+srv/

@@ -1,0 +1,22 @@
+# Static IP config for systemd-networkd.
+#
+# IMPORTANT: "enp2s0" below is just an example from one specific machine.
+# Run `ip link show` first to find YOUR actual interface name — it varies
+# by hardware and can be eth0, enp1s0, ens18, wlan0, etc. If you copy this
+# file with the wrong interface name, systemd-networkd will silently do
+# nothing and you'll keep whatever IP DHCP gave you (or lose connectivity,
+# depending on what else you disabled).
+#
+# Copy to /etc/systemd/network/<NN>-static-<your-interface>.network
+# (rename both the filename and the Name= line below), then follow the
+# "Set a static local IP" step in the README, which explains how to check
+# your current network manager before disabling anything.
+
+[Match]
+Name=enp2s0
+
+[Network]
+Address=192.168.1.100/24
+Gateway=192.168.1.1
+DNS=8.8.8.8
+DNS=1.1.1.1

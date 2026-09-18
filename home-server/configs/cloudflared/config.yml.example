@@ -1,0 +1,25 @@
+# Rename this file to config.yml and place it at ~/.cloudflared/config.yml
+# Replace every <PLACEHOLDER> with your real values. Never commit the real file.
+#
+# ⚠️ SECURITY WARNING: pointing a hostname at localhost:80 (CasaOS's port)
+# publishes your server's ADMIN DASHBOARD to the entire internet, protected
+# only by whatever password you set inside CasaOS. A tunnel makes something
+# reachable — it does not make that thing secure by itself.
+#
+# Before exposing an admin panel like CasaOS publicly, put Cloudflare Access
+# in front of it (free for personal use, no code changes needed):
+#   Cloudflare dashboard → Zero Trust → Access → Applications → Add an application
+#   → pick your hostname → require login via email OTP or an identity provider.
+# Without this, treat the hostname below as reachable by anyone who finds it.
+#
+# SSH is intentionally NOT routed through this tunnel — see docs/security.md.
+
+tunnel: <TUNNEL_NAME>
+credentials-file: /home/<USER>/.cloudflared/<TUNNEL_ID>.json
+
+ingress:
+  - hostname: app.example.com
+    service: http://localhost:80
+  - service: http_status:404
+
+protocol: http2

@@ -1,0 +1,26 @@
+# Example Samba share definition for a SINGLE-USER setup.
+# Append this to /etc/samba/smb.conf (or a file included by it), then:
+#   sudo mkdir -p /srv/shared
+#   sudo chown <USER>:<USER> /srv/shared
+#   sudo smbpasswd -a <USER>
+#   sudo systemctl restart smbd
+#
+# Permissions are intentionally NOT 0777 — that grants every user on the
+# system (not just Samba users) full read/write/execute on every new file.
+# 0755/0755 keeps the share usable while not handing out world-writable access.
+#
+# This example assumes ONE trusted user. If multiple people need write
+# access to the same files, you'd instead want a shared group (e.g. `sudo
+# groupadd sharedusers`, add each user to it, `chown <USER>:sharedusers
+# /srv/shared`, and directory mask 0775/0664 so group members can write
+# what others created) — the single-user version below is deliberately
+# simpler and is what this project assumes elsewhere.
+
+[Shared]
+   path = /srv/shared
+   browseable = yes
+   read only = no
+   guest ok = no
+   valid users = <USER>
+   create mask = 0755
+   directory mask = 0755
